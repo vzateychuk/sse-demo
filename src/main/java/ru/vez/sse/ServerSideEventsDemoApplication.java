@@ -10,7 +10,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
 
-@EnableAsync
+@EnableAsync    // (2) an asynchronous execution enabled by the @EnableAsync annotation
 @SpringBootApplication
 public class ServerSideEventsDemoApplication implements AsyncConfigurer {
 
@@ -19,17 +19,17 @@ public class ServerSideEventsDemoApplication implements AsyncConfigurer {
     }
 
     @Override
-    public Executor getAsyncExecutor() { // (3)
+    public Executor getAsyncExecutor() { // (3) prepare Executor for asynchronous processing
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();// (4)
         executor.setCorePoolSize(2);
-        executor.setMaxPoolSize(100);
-        executor.setQueueCapacity(5); // (5)
+        executor.setMaxPoolSize(100);   // ThreadPoolTaskExecutor with two core threads that may be increased to up to 100 threads
+        executor.setQueueCapacity(5); // (5) important to note that without a properly configured queue capacity (5), the thread pool is not able to grow. That is because the SynchronousQueue would be used instead, limiting concurrency.
         executor.initialize();
         return executor;
     }
 
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler(){
-        return new SimpleAsyncUncaughtExceptionHandler(); // (6)
+        return new SimpleAsyncUncaughtExceptionHandler(); // (6) exception handler for exceptions thrown from the asynchronous execution
     }
 }

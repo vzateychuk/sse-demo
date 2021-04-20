@@ -1,6 +1,7 @@
 package ru.vez.sse.temperature;
 
 public class Temperature {
+
     private final double value;
 
     public Temperature(double value) {
