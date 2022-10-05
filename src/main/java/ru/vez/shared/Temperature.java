@@ -1,4 +1,4 @@
-package ru.vez.sse.temperature;
+package ru.vez.shared;
 
 public class Temperature {
 

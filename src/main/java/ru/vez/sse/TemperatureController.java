@@ -1,4 +1,4 @@
-package ru.vez.sse.controller;
+package ru.vez.sse;
 
 import org.springframework.context.event.EventListener;
 import org.springframework.http.MediaType;
@@ -6,7 +6,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import ru.vez.sse.temperature.Temperature;
+import ru.vez.shared.Temperature;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 @RestController
-public class SSEController {
+public class TemperatureController {
 
     // (1) For the clients' collection, we may use the CopyOnWriteArraySet class from the java.util.concurrent package
     private final Set<SseEmitter> clients = new CopyOnWriteArraySet<>();
