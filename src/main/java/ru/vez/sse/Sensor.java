@@ -1,8 +1,9 @@
-package ru.vez.sse.temperature;
+package ru.vez.sse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
+import ru.vez.shared.Temperature;
 
 import javax.annotation.PostConstruct;
 import java.util.Random;
@@ -34,6 +35,6 @@ public class Sensor {
         Temperature newTemperature =  new Temperature(temperature);
         publisher.publishEvent(newTemperature);
         executor.schedule(this::probe, rnd.nextInt(5_000), MILLISECONDS); //(5.1) schedule the next read after some random delay (0-5 seconds)
-        System.out.println("TemperatureSensor.probe: " + newTemperature);
+        System.out.println("Sensor.probe: " + newTemperature);
     }
 }

@@ -1,4 +1,4 @@
-package ru.vez.sse;
+package ru.vez;
 
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler;
