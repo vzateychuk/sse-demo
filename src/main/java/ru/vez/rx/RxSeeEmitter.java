@@ -5,6 +5,7 @@ import ru.vez.shared.Temperature;
 import rx.Subscriber;
 
 import java.io.IOException;
+import java.util.List;
 
 // Имея TemperatureSensor, представляющий поток значений температуры, можем
 // подписать каждого нового получателя SseEmitter на поток данных Observable
@@ -13,13 +14,13 @@ import java.io.IOException;
 public class RxSeeEmitter extends SseEmitter {
 
   static final long SSE_SESSION_TIMEOUT = 30 * 60 * 1000L;
-  private final Subscriber<Temperature> subscriber; // (1)
+  private final Subscriber<List<Temperature>> subscriber; // (1)
 
   public RxSeeEmitter() {
     super(SSE_SESSION_TIMEOUT); // (2)
 
     this.subscriber =
-        new Subscriber<Temperature>() { // (3)
+        new Subscriber<List<Temperature>>() { // (3)
           @Override
           public void onCompleted() {
             System.out.println("subscriber.onCompleted");
@@ -31,10 +32,10 @@ public class RxSeeEmitter extends SseEmitter {
           }
 
           @Override
-          public void onNext(Temperature temperature) {
-              System.out.println("subscriber.onNext: " + temperature);
+          public void onNext(List<Temperature> temps) {
+              System.out.println("subscriber.onNext: " + temps.size());
             try {
-              RxSeeEmitter.this.send(temperature); // (4)
+              RxSeeEmitter.this.send(temps); // (4)
             } catch (IOException e) {
               unsubscribe(); // (5)
             }
@@ -45,7 +46,7 @@ public class RxSeeEmitter extends SseEmitter {
     this.onTimeout(this.subscriber::unsubscribe); // (9)
   }
 
-    public Subscriber<Temperature> getSubscriber() { // (10)
+    public Subscriber<List<Temperature>> getSubscriber() { // (10)
         return this.subscriber;
     }
 }

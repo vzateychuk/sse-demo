@@ -9,8 +9,8 @@
     var eventSource = new EventSource("/rx/stream"); // (1) EventSource object pointed at /temperature-stream
     eventSource.onmessage = e => { // (2) This handles incoming messages by invoking the onmessage() function
         const t = JSON.parse(e.data);
-        const fixed = Number(t.value).toFixed(2);
-        add('Temperature: ' + fixed + ' C');
+        // const fixed = Number(t.value).toFixed(2);
+        add('Temp: ' + t + ' C');
     }
     eventSource.onopen = e => add('Connection opened'); // (3) error handling, and reaction to the stream opening, which are done in the same fashion
     eventSource.onerror = e => add('Connection closed'); //

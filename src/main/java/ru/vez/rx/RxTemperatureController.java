@@ -23,7 +23,7 @@ public class RxTemperatureController {
         RxSeeEmitter emitter = new RxSeeEmitter(); // (2)
 
         this.sensor
-                .getTemperatureStream() // (3)
+                .getTemperatureList() // (3)
                 .subscribe( emitter.getSubscriber() ); // (4)
         return emitter; // (5)
     }
